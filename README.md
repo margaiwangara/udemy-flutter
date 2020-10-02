@@ -1,3 +1,3 @@
-# Repository containing code from udemy course by Maximilian on Flutter
+# Udemy Flutter Courses
 
 This repository contains all code and practises from Max's flutter udemy course
