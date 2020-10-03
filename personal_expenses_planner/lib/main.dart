@@ -9,7 +9,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Personal Expenses App',
+      title: 'Personal Expenses',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        accentColor: Colors.purple,
+        fontFamily: 'Montserrat',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+        appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+      ),
       home: MyHomePage(),
     );
   }
@@ -22,18 +41,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'Laptop',
-      amount: 800.25,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Phone',
-      amount: 400.55,
-      date: DateTime.now(),
-    )
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Laptop',
+    //   amount: 800.25,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Phone',
+    //   amount: 400.55,
+    //   date: DateTime.now(),
+    // )
   ];
 
   void _addNewTransaction(String title, double amount) {
@@ -59,39 +78,37 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Personal Expenses App'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _startAddNewTransaction(context),
-            )
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Personal Expenses'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.blue,
+                child: Text('Chart goes here'),
+                elevation: 5,
+              ),
+            ),
+            TransactionList(_userTransactions),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                child: Card(
-                  color: Colors.blue,
-                  child: Text('Chart goes here'),
-                  elevation: 5,
-                ),
-              ),
-              TransactionList(_userTransactions),
-            ],
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => _startAddNewTransaction(context),
-        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
